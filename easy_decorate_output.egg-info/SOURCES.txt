@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+easy_decorate_output/__init__.py
+easy_decorate_output/decorate.py
+easy_decorate_output.egg-info/PKG-INFO
+easy_decorate_output.egg-info/SOURCES.txt
+easy_decorate_output.egg-info/dependency_links.txt
+easy_decorate_output.egg-info/top_level.txt
