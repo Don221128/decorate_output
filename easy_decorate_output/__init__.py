@@ -1,1 +1,1 @@
-from easy_decorate_output.decorate import decorate_input,decorate_print
+from easy_decorate_output.decorate import decorate_input,decorate_print,decorate_box
