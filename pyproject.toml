@@ -10,9 +10,9 @@ authors = [
 ]
 description = "一個用於自訂美化終端機輸出的輕量級工具庫"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
-    "rich>=13.0.0"
+    "rich>=15.0.0"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

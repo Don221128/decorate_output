@@ -67,11 +67,11 @@ def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
                 string=f"{decorate}{line}{decorate}"
             result.append(string)
         final_text="\n".join(result)
-        width=150
-        height=5
         if size is not None:
             width=max(3,size[0])
             height=max(3,size[1])
+        else:
+            width,height=150,5
         box=Panel(final_text,title=title,width=width,height=height,border_style=color)
         console.print(box)
     except Exception as e:
