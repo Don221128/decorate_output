@@ -1,10 +1,15 @@
 from rich.console import Console
 from rich.text import Text
 from rich.panel import Panel
+from rich.style import Style
 console=Console()
+theme_color="white"
 def decorate_print(text,decorate,only_decorate=None,color=None):
     try:
+        global theme_color
         text=str(text)
+        if color is None:
+            color=theme_color
         lines=text.split('\n')
         for line in lines:
             if only_decorate=="start":
@@ -20,9 +25,12 @@ def decorate_print(text,decorate,only_decorate=None,color=None):
         print("Error!")
 def decorate_input(text,decorate,only_decorate=None,color=None):
     try:
+        global theme_color
         text=str(text)
+        if color is None:
+            color=theme_color
         lines=text.split('\n')
-        for line in lines[:-1]:
+        for _ in lines[:-1]:
             if only_decorate=="start":
                 string=f"{decorate}{lines[-1]}"
             elif only_decorate=="end":
@@ -41,10 +49,13 @@ def decorate_input(text,decorate,only_decorate=None,color=None):
         return variable
     except Exception:
         print("Error!")
-def decorate_box(text,decorate,title,only_decorate=None,color=None):
+def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
     try:
+        global theme_color
         text=str(text)
         title=str(title)
+        if color is None:
+            color=theme_color
         lines=text.split('\n')
         result=[]
         for line in lines:
@@ -56,7 +67,18 @@ def decorate_box(text,decorate,title,only_decorate=None,color=None):
                 string=f"{decorate}{line}{decorate}"
             result.append(string)
         final_text="\n".join(result)
-        box=Panel(final_text,title=title,border_style=color)
+        width=150
+        height=5
+        if size is not None:
+            width=max(3,size[0])
+            height=max(3,size[1])
+        box=Panel(final_text,title=title,width=width,height=height,border_style=color)
         console.print(box)
-    except Exception:
-        print("Error!")
+    except Exception as e:
+        print(f"Error!{e}")
+def set_theme_color(color=None):
+    global theme_color
+    if color==None:
+        theme_color="white"
+    Style.parse(color)
+    theme_color=color
