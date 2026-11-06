@@ -1,13 +1,21 @@
-from rich.console import Console
-from rich.text import Text
-from rich.panel import Panel
-from rich.style import Style
+lazy from rich.console import Console
+lazy from rich.text import Text
+lazy from rich.panel import Panel
+lazy from rich.style import Style
 console=Console()
 theme_color="white"
+theme_only_decorate=None
+theme_decorate=None
 def decorate_print(text,decorate,only_decorate=None,color=None):
     try:
         global theme_color
+        global theme_only_decorate
+        global theme_decorate
         text=str(text)
+        if decorate==None:
+            decorate=theme_decorate
+        if only_decorate==None:
+            only_decorate=theme_only_decorate
         if color is None:
             color=theme_color
         lines=text.split('\n')
@@ -26,7 +34,13 @@ def decorate_print(text,decorate,only_decorate=None,color=None):
 def decorate_input(text,decorate,only_decorate=None,color=None):
     try:
         global theme_color
+        global theme_only_decorate
+        global theme_decorate
         text=str(text)
+        if decorate==None:
+            decorate=theme_decorate
+        if only_decorate==None:
+            only_decorate=theme_only_decorate
         if color is None:
             color=theme_color
         lines=text.split('\n')
@@ -52,8 +66,14 @@ def decorate_input(text,decorate,only_decorate=None,color=None):
 def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
     try:
         global theme_color
+        global theme_only_decorate
+        global theme_decorate
         text=str(text)
         title=str(title)
+        if decorate==None:
+            decorate=theme_decorate
+        if only_decorate==None:
+            only_decorate=theme_only_decorate
         if color is None:
             color=theme_color
         lines=text.split('\n')
@@ -76,9 +96,20 @@ def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
         console.print(box)
     except Exception as e:
         print(f"Error!{e}")
-def set_theme_color(color=None):
+def set_theme(decorate,only_decorate,color=None):
     global theme_color
+    global theme_only_decorate
+    global theme_decorate
+    if decorate==None:
+        theme_decorate=None
+    else:
+        theme_decorate=decorate
+    if only_decorate==None:
+        theme_only_decorate=None
+    else:
+        theme_only_decorate=only_decorate
     if color==None:
         theme_color="white"
-    Style.parse(color)
-    theme_color=color
+    else:
+        Style.parse(color)
+        theme_color=color
