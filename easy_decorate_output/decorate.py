@@ -6,7 +6,7 @@ console=Console()
 theme_color="white"
 theme_only_decorate=None
 theme_decorate=None
-def decorate_print(text,decorate,only_decorate=None,color=None):
+def decorate_print(text,decorate,only_decorate=None,color=None,end="/n"):
     try:
         global theme_color
         global theme_only_decorate
@@ -28,10 +28,10 @@ def decorate_print(text,decorate,only_decorate=None,color=None):
                 string=f"{decorate}{line}{decorate}"
             if color!=None:
                 string=f"[{color}]{string}[/]"
-            console.print(string)
+            console.print(string,end=end)
     except Exception:
         print("Error!")
-def decorate_input(text,decorate,only_decorate=None,color=None):
+def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
     try:
         global theme_color
         global theme_only_decorate
@@ -51,7 +51,7 @@ def decorate_input(text,decorate,only_decorate=None,color=None):
                 string=f"{lines[-1]}{decorate}"
             else:
                 string=f"{decorate}{lines[-1]}{decorate}"
-            console.print(Text(string,style=color))
+            console.print(Text(string,style=color,end=end))
         late_line=lines[-1]
         if only_decorate=="start":
             result=f"{decorate}{late_line}"
@@ -96,7 +96,7 @@ def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
         console.print(box)
     except Exception as e:
         print(f"Error!{e}")
-def set_theme(decorate,only_decorate,color=None):
+def set_theme(decorate=None,only_decorate=None,color=None):
     global theme_color
     global theme_only_decorate
     global theme_decorate
