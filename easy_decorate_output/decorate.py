@@ -11,7 +11,6 @@ def decorate_print(text,decorate,only_decorate=None,color=None,end="/n"):
         global theme_color
         global theme_only_decorate
         global theme_decorate
-        text=str(text)
         if decorate==None:
             decorate=theme_decorate
         if only_decorate==None:
@@ -36,7 +35,6 @@ def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
         global theme_color
         global theme_only_decorate
         global theme_decorate
-        text=str(text)
         if decorate==None:
             decorate=theme_decorate
         if only_decorate==None:
@@ -68,8 +66,6 @@ def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
         global theme_color
         global theme_only_decorate
         global theme_decorate
-        text=str(text)
-        title=str(title)
         if decorate==None:
             decorate=theme_decorate
         if only_decorate==None:
@@ -113,3 +109,8 @@ def set_theme(decorate=None,only_decorate=None,color=None):
     else:
         Style.parse(color)
         theme_color=color
+def fast_print(text,color=None,end="\n"):
+    global theme_color
+    if color==None:
+        color=theme_color
+    console.print(text,end=end)
