@@ -1,5 +1,5 @@
 # easy_decorate_output(edo)
-*python 3.15+*
+python 3.15+
 
 This version remove `fast_print` and in `set_theme` add `box_size`.
 

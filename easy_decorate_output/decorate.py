@@ -2,12 +2,13 @@ lazy from rich.console import Console
 lazy from rich.text import Text
 lazy from rich.panel import Panel
 lazy from rich.style import Style
+lazy import keyboard
 console=Console()
 theme_color="white"
 theme_only_decorate=None
 theme_decorate=None
 theme_box_size=None
-def decorate_print(text,decorate,only_decorate=None,color=None,end="/n"):
+def decorate_print(text=None,decorate=None,only_decorate=None,color=None,end="/n"):
     try:
         global theme_color
         global theme_only_decorate
@@ -31,7 +32,7 @@ def decorate_print(text,decorate,only_decorate=None,color=None,end="/n"):
             console.print(string,end=end)
     except Exception:
         print("Error!")
-def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
+def decorate_input(text=None,decorate=None,only_decorate=None,color=None,end="/n"):
     try:
         global theme_color
         global theme_only_decorate
@@ -42,7 +43,7 @@ def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
             only_decorate=theme_only_decorate
         if color is None:
             color=theme_color
-        lines=text.split('\n')
+        lines=text.split("\n")
         for _ in lines[:-1]:
             if only_decorate=="start":
                 string=f"{decorate}{lines[-1]}"
@@ -62,7 +63,7 @@ def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
         return variable
     except Exception:
         print("Error!")
-def decorate_box(title,text,decorate,only_decorate=None,size=None,color=None):
+def decorate_box(title=None,text=None,decorate=None,only_decorate=None,size=None,color=None):
     try:
         global theme_color
         global theme_only_decorate
@@ -118,3 +119,32 @@ def set_theme(decorate=None,only_decorate=None,box_size=None,color=None):
     else:
         Style.parse(color)
         theme_color=color
+def keyboard_input(text=None,decorate=None,only_decorate=None,key=None,color=None,end="\n"):
+    global theme_color
+    global theme_only_decorate
+    global theme_decorate
+    if decorate==None:
+        decorate=theme_decorate
+    if only_decorate==None:
+        only_decorate=theme_only_decorate
+    if color==None:
+        color=theme_color
+    lines=text.split("\n")
+    for _ in lines[:-1]:
+        if only_decorate=="start":
+            string=f"{decorate}{lines[-1]}"
+        elif only_decorate=="end":
+            string=f"{lines[-1]}{decorate}"
+        else:
+            string=f"{decorate}{lines[-1]}{decorate}"
+        console.print(Text(string,style=color,end=end))
+    while keyboard.is_pressed(key):
+        event=keyboard.read_event()
+        if event.event_type==keyboard.KEY_DOWN():
+            if key is not None:
+                if event.name in key:
+                    passed_key=event.name
+                    break
+            else:
+                passed_key=event.name
+    return passed_key
