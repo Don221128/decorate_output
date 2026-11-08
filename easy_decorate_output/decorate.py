@@ -6,6 +6,7 @@ console=Console()
 theme_color="white"
 theme_only_decorate=None
 theme_decorate=None
+theme_box_size=None
 def decorate_print(text,decorate,only_decorate=None,color=None,end="/n"):
     try:
         global theme_color
@@ -61,15 +62,18 @@ def decorate_input(text,decorate,only_decorate=None,color=None,end="/n"):
         return variable
     except Exception:
         print("Error!")
-def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
+def decorate_box(title,text,decorate,only_decorate=None,size=None,color=None):
     try:
         global theme_color
         global theme_only_decorate
         global theme_decorate
+        global theme_box_size
         if decorate==None:
             decorate=theme_decorate
         if only_decorate==None:
             only_decorate=theme_only_decorate
+        if size==None:
+            size=theme_box_size
         if color is None:
             color=theme_color
         lines=text.split('\n')
@@ -92,10 +96,11 @@ def decorate_box(text,decorate,title,only_decorate=None,size=None,color=None):
         console.print(box)
     except Exception as e:
         print(f"Error!{e}")
-def set_theme(decorate=None,only_decorate=None,color=None):
+def set_theme(decorate=None,only_decorate=None,box_size=None,color=None):
     global theme_color
     global theme_only_decorate
     global theme_decorate
+    global theme_box_size
     if decorate==None:
         theme_decorate=None
     else:
@@ -104,13 +109,12 @@ def set_theme(decorate=None,only_decorate=None,color=None):
         theme_only_decorate=None
     else:
         theme_only_decorate=only_decorate
+    if box_size==None:
+        theme_box_size=None
+    else:
+        theme_box_size+box_size
     if color==None:
         theme_color="white"
     else:
         Style.parse(color)
         theme_color=color
-def fast_print(text,color=None,end="\n"):
-    global theme_color
-    if color==None:
-        color=theme_color
-    console.print(text,end=end)

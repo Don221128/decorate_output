@@ -1,2 +1,2 @@
-from easy_decorate_output.decorate import decorate_print,decorate_input,decorate_box,set_theme,fast_print
-__all__=["decorate_print","decorate_input","decorate_box","set_theme","fast_print"]
+from easy_decorate_output.decorate import decorate_print,decorate_input,decorate_box,set_theme
+__all__=["decorate_print","decorate_input","decorate_box","set_theme"]
