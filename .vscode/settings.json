@@ -1,3 +1,7 @@
 {
+    "files.associations": {
+        "decorate.py": "python",
+        "*.esg": "python"
+    },
     "python-envs.defaultEnvManager": "ms-python.python:system"
 }

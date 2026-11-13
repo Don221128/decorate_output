@@ -1,0 +1,10 @@
+from edo import es
+es=es()
+es.setting(
+    setting="""
+    #注解
+    title="Hi!"
+    text="這行是文字"
+    """
+)
+print(es.get_json())
