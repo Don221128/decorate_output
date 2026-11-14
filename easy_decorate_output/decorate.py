@@ -1,4 +1,4 @@
-﻿lazy from rich.console import Console
+lazy from rich.console import Console
 lazy from rich.text import Text
 lazy from rich.panel import Panel
 lazy from rich.style import Style
@@ -9,17 +9,20 @@ theme_color="white"
 theme_only_decorate=None
 theme_decorate=None
 theme_box_size=None
+theme_end="\n"
 class edo:
     def __init__(self):
         global theme_color
         global theme_only_decorate
         global theme_decorate
         global theme_box_size
+        global theme_end
         self.theme_color=theme_color
         self.theme_only_decorate=theme_only_decorate
         self.theme_decorate=theme_decorate
         self.theme_box_size
-    def decorate_print(self,text=None,decorate=None,only_decorate=None,color=None,end="/n"):
+        self.theme_end=theme_end
+    def decorate_print(self,text=None,decorate=None,only_decorate=None,color=None,end="\n"):
         try:
             if decorate==None:
                 decorate=self.theme_decorate
@@ -27,6 +30,8 @@ class edo:
                 only_decorate=self.theme_only_decorate
             if color is None:
                 color=self.theme_color
+            if end==None:
+                end==self.theme_end
             lines=text.split('\n')
             for line in lines:
                 if only_decorate=="start":
@@ -40,7 +45,7 @@ class edo:
                 console.print(string,end=end)
         except Exception:
             print("Error!")
-    def decorate_input(self,text=None,decorate=None,only_decorate=None,color=None,end="/n"):
+    def decorate_input(self,text=None,decorate=None,only_decorate=None,color=None,end="\n"):
         try:
             if decorate==None:
                 decorate=self.theme_decorate
@@ -48,6 +53,8 @@ class edo:
                 only_decorate=self.theme_only_decorate
             if color is None:
                 color=self.theme_color
+            if end==None:
+                end=self.theme_end
             lines=text.split("\n")
             for _ in lines[:-1]:
                 if only_decorate=="start":
@@ -77,7 +84,7 @@ class edo:
             if size==None:
                 size=self.theme_box_size
             if color is None:
-                color=theme_color
+                color=self.theme_color
             lines=text.split('\n')
             result=[]
             for line in lines:
@@ -98,7 +105,7 @@ class edo:
             console.print(box)
         except Exception as e:
             print(f"Error!{e}")
-    def set_theme(self,decorate=None,only_decorate=None,box_size=None,color=None):
+    def set_theme(self,decorate=None,only_decorate=None,box_size=None,color=None,end=None):
         try:
             if decorate==None:
                 self.theme_decorate=None
@@ -112,6 +119,10 @@ class edo:
                 self.theme_box_size=None
             else:
                 self.theme_box_size=box_size
+            if end==None:
+                self.theme_end="\n"
+            else:
+                self.theme_end=end
             if color==None:
                 self.theme_color="white"
             else:
@@ -146,11 +157,28 @@ class edo:
                     else:
                         passed_key=event.name
                 return passed_key
+        except KeyError as e:
+            print(f"Error!{e}")
         except Exception as e:
             print(f"Error!{e}")
 class es:
     def __init__(self):
         self.setting_json={}
+    def parse_val(self,raw_val):
+        val=raw_val.strip()
+        if val.lower()=="true":
+            return True
+        if val.lower()=="false":
+            return False
+        try:
+            return int(val)
+        except ValueError:
+            pass
+        try:
+            return float(val)
+        except ValueError:
+            pass
+        return val
     def setting(self,setting):
         try:
             lines=setting.split("\n")
@@ -159,7 +187,7 @@ class es:
                 if not line or line.startswith("#") or "=" not in line:
                     continue
                 key,val=line.split("=",1)
-                self.setting_json[key.strip()]=val.strip().strip('"/"')
+                self.setting_json[key.strip()]=self.parse_val(val.strip('"/"'))
         except Exception as e:
             print(f"Error!{e}")
     def get_json(self):

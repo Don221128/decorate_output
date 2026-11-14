@@ -5,6 +5,9 @@ es.setting(
     #注解
     title="Hi!"
     text="這行是文字"
+    number=1
+    version=1.0.0
+    runing=True
     """
 )
 print(es.get_json())

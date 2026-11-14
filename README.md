@@ -6,8 +6,7 @@ This version add `keyboard_input` and class `es`.
 eg:
 
 ```python
-import edo
-import es
+from edo import edo,es
 edo=edo()
 es=es()
 edo.set_theme(decorate="*",only_decorate="start",color="green")

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "easy_decorate_output"
-version = "1.0.0"
+version = "1.1.0"
 authors = [
   { name = "Don221128" }
 ]
@@ -13,9 +13,10 @@ readme = "README.md"
 requires-python = ">=3.15"
 dependencies = [
     "rich>=15.0.0"
+    "keyboard>=0.13.5"
 ]
 [tool.hatch.build.targets.wheel]
-packages = ["easy_decorate_output"]
+packages = ["easy_decorate_output","edo"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -24,4 +25,4 @@ classifiers = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["easy_decorate_output*"]
+include = ["easy_decorate_output*","edo*"]
